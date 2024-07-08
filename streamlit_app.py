@@ -24,45 +24,28 @@ def load_data():
 
 df = load_data()
 
-# Display the dataframe in Streamlit
-st.write(df)
-@st.cache_data
-def load_data():
-    df = pd.read_csv("data/games.csv")
-    return df
-
-# Load data
-df = load_data()
-
-# Print column names for verification
-st.write("Columns in the dataframe:", df.columns)
-
 st.sidebar.header("Filter Options")
 
 # Year slider
 years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
 
-# Verify if 'Year_of_Release' column is present and valid
-if 'Year_of_Release' in df.columns:
-    # Filter the data based on selected year range
-    filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
+# Filter the data based on the selected year range
+filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
 
-    # Altair chart configuration
-    chart = alt.Chart(filtered_df).mark_line().encode(
-        x='Year_of_Release:O',
-        y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title="Sales by Year"
-    )
+# Altair scatter plot configuration
+scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+    x='Year_of_Release:O',  # Make sure this is object type for ordinal scale
+    y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
+    color='Platform:N',
+    tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+).interactive().properties(
+    width=800,
+    height=400,
+    title="Sales by Year"
+)
 
-    # Display the chart
-    st.altair_chart(chart, use_container_width=True)
+# Display the scatter plot
+st.altair_chart(scatter_plot, use_container_width=True)
 
-    # Display dataframe for verification
-    st.write(filtered_df)
-else:
-    st.write("The 'Year_of_Release' column does not exist in the dataframe")
+# Optionally display the filtered dataframe (for debugging or user verification)
+st.write(filtered_df)
