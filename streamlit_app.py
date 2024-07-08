@@ -86,7 +86,7 @@ def main():
             title="Sales by Year"
         )
          
-        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='JP_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
             color='Platform:N',
@@ -97,7 +97,7 @@ def main():
             title="Sales by Year"
         )
          
-        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='EU_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
             color='Platform:N',
@@ -110,6 +110,8 @@ def main():
 
         # Display the scatter plot
         st.altair_chart(scatter_plot, use_container_width=True)
+        st.altair_chart(scatter_plot_2, use_container_width=True)
+        st.altair_chart(scatter_plot_3, use_container_width=True)
 
         # Optionally display the filtered dataframe (for debugging or user verification)
         st.write(filtered_df)
