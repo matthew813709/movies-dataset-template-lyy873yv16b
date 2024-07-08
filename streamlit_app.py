@@ -1,6 +1,6 @@
-import streamlit as st
 import pandas as pd
 import altair as alt
+import streamlit as st
 
 # Function to load data
 @st.cache_data
@@ -34,7 +34,7 @@ def check_password():
 def main():
     if check_password():
         # User authenticated, show main content
-        st.title("Protected Content")
+        st.title("PyGame - A video game database")
 
         # Load data
         df = load_data()
@@ -50,7 +50,7 @@ def main():
 
         # Altair scatter plot configuration
         scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',  # Make sure this is object type for ordinal scale
+            x='Year_of_Release:O',
             y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
             color='Platform:N',
             tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
@@ -66,6 +66,6 @@ def main():
         # Optionally display the filtered dataframe (for debugging or user verification)
         st.write(filtered_df)
 
-# Run main function
+# Run the main function
 if __name__ == "__main__":
     main()
