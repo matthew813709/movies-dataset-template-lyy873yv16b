@@ -34,8 +34,15 @@ def check_password():
 def edit_entries(df):
     st.write("### Edit Entries")
     
-    game_names = df['Name'].unique()
-    selected_game = st.selectbox("Select a Game to Edit", game_names)
+    # Add a search input
+    search_query = st.text_input("Search for a game")
+
+    # Filter the game names based on search query (case-insensitive)
+    game_names = df['Name'].str.contains(search_query, case=False, na=False)
+    filtered_games = df[game_names]
+    
+    # Selectbox with filtered game names
+    selected_game = st.selectbox("Select a Game to Edit", filtered_games['Name'])
     
     if selected_game:
         game_data = df[df['Name'] == selected_game].iloc[0]
@@ -45,12 +52,10 @@ def edit_entries(df):
         new_platform = st.text_input("Platform", game_data['Platform'])
         new_year = st.number_input("Year of Release", int(game_data['Year_of_Release']))
         new_na_sales = st.number_input("NA Sales", float(game_data['NA_sales']))
-        new_jp_sales = st.number_input("JP Sales", float(game_data['JP_sales']))
-        new_eu_sales = st.number_input("EU Sales", float(game_data['EU_sales']))
         
         if st.button("Save Changes"):
             # Update the dataframe with the new values
-            df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales', 'JP_sales', 'EU_sales']] = [new_name, new_platform, new_year, new_na_sales]
+            df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales']] = [new_name, new_platform, new_year, new_na_sales]
             st.success("Entry updated successfully!")
 
 # Main function
@@ -85,7 +90,6 @@ def main():
             height=400,
             title="Sales by Year"
         )
-         
         scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='JP_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
@@ -96,7 +100,6 @@ def main():
             height=400,
             title="Sales by Year"
         )
-         
         scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='EU_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
