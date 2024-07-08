@@ -25,11 +25,7 @@ def load_data():
 df = load_data()
 
 # Show a multiselect widget with the genres using `st.multiselect`.
-genres = st.multiselect(
-    "North America, Japan, Europe",
-    df.genre.unique(),
-    ["Japan", "North America", "Europe"],
-)
+
 
 # Show a slider widget with the years using `st.slider`.
 years = st.slider("Years", 1986, 2006, (2000, 2016))
