@@ -26,28 +26,44 @@ df = load_data()
 
 # Display the dataframe in Streamlit
 st.write(df)
+@st.cache_data
+def load_data():
+    df = pd.read_csv("data/games.csv")
+    return df
+
+# Load data
+df = load_data()
+
+# Print column names for verification
+st.write("Columns in the dataframe:", df.columns)
+
+# Sidebar for user input
 st.sidebar.header("Filter Options")
 
 # Year slider
 years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
 
-# Filter the data based on selected year range
-filtered_df = df[(df['Year'] >= years[0]) & (df['Year'] <= years[1])]
+# Verify if 'Year' column is present and valid
+if 'Year' in df.columns:
+    # Filter the data based on selected year range
+    filtered_df = df[(df['Year'] >= years[0]) & (df['Year'] <= years[1])]
 
-# Altair chart configuration
-chart = alt.Chart(filtered_df).mark_line().encode(
-    x='Year:O',
-    y='Sales:Q',
-    color='Platform:N',
-    tooltip=['Name', 'Platform', 'Year', 'Sales']
-).interactive().properties(
-    width=800,
-    height=400,
-    title="Sales by Year"
-)
+    # Altair chart configuration
+    chart = alt.Chart(filtered_df).mark_line().encode(
+        x='Year:O',
+        y='Sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year', 'Sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title="Sales by Year"
+    )
 
-# Display the chart
-st.altair_chart(chart, use_container_width=True)
+    # Display the chart
+    st.altair_chart(chart, use_container_width=True)
 
-# Display dataframe for verification
-st.write(filtered_df)
+    # Display dataframe for verification
+    st.write(filtered_df)
+else:
+    st.write("The 'Year' column does not exist in the dataframe")
