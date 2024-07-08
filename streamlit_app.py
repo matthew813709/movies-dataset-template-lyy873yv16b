@@ -30,14 +30,38 @@ def check_password():
         # Password correct
         return True
 
+# Function to display and edit entries
+def edit_entries(df):
+    st.write("### Edit Entries")
+    
+    game_names = df['Name'].unique()
+    selected_game = st.selectbox("Select a Game to Edit", game_names)
+    
+    if selected_game:
+        game_data = df[df['Name'] == selected_game].iloc[0]
+        
+        # Display current values and input widgets for editing
+        new_name = st.text_input("Name", game_data['Name'])
+        new_platform = st.text_input("Platform", game_data['Platform'])
+        new_year = st.number_input("Year of Release", int(game_data['Year_of_Release']))
+        new_na_sales = st.number_input("NA Sales", float(game_data['NA_sales']))
+        
+        if st.button("Save Changes"):
+            # Update the dataframe with the new values
+            df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales']] = [new_name, new_platform, new_year, new_na_sales]
+            st.success("Entry updated successfully!")
+
 # Main function
 def main():
     if check_password():
         # User authenticated, show main content
-        st.title("PyGame - A Video Game Database")
+        st.title("PyGame - A video game database")
 
         # Load data
         df = load_data()
+        
+        # Display and edit entries
+        edit_entries(df)
         
         # Sidebar for user input
         st.sidebar.header("Filter Options")
@@ -60,39 +84,12 @@ def main():
             title="Sales by Year"
         )
 
-             # Altair scatter plot configuration
-        scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',
-            y='JP_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
-            color='Platform:N',
-            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-        ).interactive().properties(
-            width=800,
-            height=400,
-            title="Sales by Year"
-        )
-
-             # Altair scatter plot configuration
-        scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',
-            y='EU_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
-            color='Platform:N',
-            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-        ).interactive().properties(
-            width=800,
-            height=400,
-            title="Sales by Year"
-        )
-
         # Display the scatter plot
         st.altair_chart(scatter_plot, use_container_width=True)
 
-        st.altair_chart(scatter_plot_2, use_container_width=True)
-
-        st.altair_chart(scatter_plot_3, use_container_width=True)
         # Optionally display the filtered dataframe (for debugging or user verification)
         st.write(filtered_df)
 
-# Run the main function
+# Run main function
 if __name__ == "__main__":
     main()
