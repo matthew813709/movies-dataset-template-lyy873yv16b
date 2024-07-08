@@ -24,38 +24,5 @@ def load_data():
 
 df = load_data()
 
-# Show a multiselect widget with the genres using `st.multiselect`.
-
-
-# Show a slider widget with the years using `st.slider`.
-years = st.slider("Years", 1986, 2006, (2000, 2016))
-
-# Filter the dataframe based on the widget input and reshape it.
-df_reshaped = df_filtered.pivot_table(
-    index="Name", columns="Platform", values="NA_sales", aggfunc="sum", fill_value=0
-)
-df_reshaped = df_reshaped.sort_values(by="year", ascending=False)
-
-
-# Display the data as a table using `st.dataframe`.
-st.dataframe(
-    df_reshaped,
-    use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Year")},
-)
-
-# Display the data as an Altair chart using `st.altair_chart`.
-df_chart = pd.melt(
-    df_reshaped.reset_index(), id_vars="Name", var_name="Sales", value_name="Platform"
-)
-chart = (
-    alt.Chart(df_chart)
-    .mark_line()
-    .encode(
-        x=alt.X("year:N", title="Year"),
-        y=alt.Y("gross:Q", title="Gross earnings ($)"),
-        color="genre:N",
-    )
-    .properties(height=320)
-)
-st.altair_chart(chart, use_container_width=True)
+# Display the dataframe in Streamlit
+st.write(df)
