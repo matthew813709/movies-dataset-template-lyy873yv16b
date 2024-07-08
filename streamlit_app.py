@@ -31,9 +31,8 @@ df = load_data()
 years = st.slider("Years", 1986, 2006, (2000, 2016))
 
 # Filter the dataframe based on the widget input and reshape it.
-df_filtered = df[(df["genre"].isin(genres)) & (df["year"].between(years[0], years[1]))]
 df_reshaped = df_filtered.pivot_table(
-    index="year", columns="genre", values="gross", aggfunc="sum", fill_value=0
+    index="Name", columns="Platform", values="NA_sales", aggfunc="sum", fill_value=0
 )
 df_reshaped = df_reshaped.sort_values(by="year", ascending=False)
 
@@ -47,7 +46,7 @@ st.dataframe(
 
 # Display the data as an Altair chart using `st.altair_chart`.
 df_chart = pd.melt(
-    df_reshaped.reset_index(), id_vars="year", var_name="genre", value_name="gross"
+    df_reshaped.reset_index(), id_vars="Name", var_name="Sales", value_name="Platform"
 )
 chart = (
     alt.Chart(df_chart)
