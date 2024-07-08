@@ -45,8 +45,8 @@ def edit_entries(df):
         new_platform = st.text_input("Platform", game_data['Platform'])
         new_year = st.number_input("Year of Release", int(game_data['Year_of_Release']))
         new_na_sales = st.number_input("NA Sales", float(game_data['NA_sales']))
-        new_jp_sales = st.number_input("NA Sales", float(game_data['JP_sales']))
-        new_eu_sales = st.number_input("NA Sales", float(game_data['EU_sales']))
+        new_jp_sales = st.number_input("JP Sales", float(game_data['JP_sales']))
+        new_eu_sales = st.number_input("EU Sales", float(game_data['EU_sales']))
         
         if st.button("Save Changes"):
             # Update the dataframe with the new values
