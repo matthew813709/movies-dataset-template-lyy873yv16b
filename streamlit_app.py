@@ -37,23 +37,22 @@ df = load_data()
 # Print column names for verification
 st.write("Columns in the dataframe:", df.columns)
 
-# Sidebar for user input
 st.sidebar.header("Filter Options")
 
 # Year slider
 years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
 
-# Verify if 'Year' column is present and valid
-if 'Year_Of_Release' in df.columns:
+# Verify if 'Year_of_Release' column is present and valid
+if 'Year_of_Release' in df.columns:
     # Filter the data based on selected year range
-    filtered_df = df[(df['Year_Of_Release'] >= years[0]) & (df['Year_Of_Release'] <= years[1])]
+    filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
 
     # Altair chart configuration
     chart = alt.Chart(filtered_df).mark_line().encode(
-        x='Year_Of_Release:O',
-        y='Sales:Q',
+        x='Year_of_Release:O',
+        y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
         color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year', 'Sales']
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
     ).interactive().properties(
         width=800,
         height=400,
@@ -66,4 +65,4 @@ if 'Year_Of_Release' in df.columns:
     # Display dataframe for verification
     st.write(filtered_df)
 else:
-    st.write("The 'Year' column does not exist in the dataframe")
+    st.write("The 'Year_of_Release' column does not exist in the dataframe")
