@@ -34,7 +34,7 @@ def check_password():
 def main():
     if check_password():
         # User authenticated, show main content
-        st.title("PyGame - A video game database")
+        st.title("PyGame - A Video Game Database")
 
         # Load data
         df = load_data()
