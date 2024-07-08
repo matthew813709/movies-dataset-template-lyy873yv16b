@@ -44,13 +44,13 @@ st.sidebar.header("Filter Options")
 years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
 
 # Verify if 'Year' column is present and valid
-if 'Year' in df.columns:
+if 'Year_Of_Release' in df.columns:
     # Filter the data based on selected year range
-    filtered_df = df[(df['Year'] >= years[0]) & (df['Year'] <= years[1])]
+    filtered_df = df[(df['Year_Of_Release'] >= years[0]) & (df['Year_Of_Release'] <= years[1])]
 
     # Altair chart configuration
     chart = alt.Chart(filtered_df).mark_line().encode(
-        x='Year:O',
+        x='Year_Of_Release:O',
         y='Sales:Q',
         color='Platform:N',
         tooltip=['Name', 'Platform', 'Year', 'Sales']
