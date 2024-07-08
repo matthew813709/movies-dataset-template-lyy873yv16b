@@ -3,12 +3,12 @@ import pandas as pd
 import streamlit as st
 
 # Show the page title and description.
-st.set_page_config(page_title="Movies dataset", page_icon="🎬")
-st.title("🎬 Movies dataset")
+st.set_page_config(page_title="Video Games dataset", page_icon="🎬")
+st.title("🎬 Video Games dataset")
 st.write(
     """
-    This app visualizes data from [The Movie Database (TMDB)](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata).
-    It shows which movie genre performed best at the box office over the years. Just 
+    This app visualizes data from [The Video Game Database).
+    It shows which video game genre performed best over the years. Just 
     click on the widgets below to explore!
     """
 )
@@ -18,7 +18,7 @@ st.write(
 # reruns (e.g. if the user interacts with the widgets).
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/movies_genres_summary.csv")
+    df = pd.read_csv("data/games.csv")
     return df
 
 
@@ -26,9 +26,9 @@ df = load_data()
 
 # Show a multiselect widget with the genres using `st.multiselect`.
 genres = st.multiselect(
-    "Genres",
+    "North America, Japan, Europe",
     df.genre.unique(),
-    ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"],
+    ["Japan", "North America", "Europe"],
 )
 
 # Show a slider widget with the years using `st.slider`.
