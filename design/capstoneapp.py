@@ -3,8 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-DATABASE_PATH = 'C:/Users/Administrator/Desktop/games.sq3pro'  # Adjust the path as needed
-
+DATABASE_PATH = 'C:/Users/Administrator/Desktop/games.sq3pro'  
 def connect_db():
     conn = sqlite3.connect(DATABASE_PATH)
     conn.row_factory = sqlite3.Row
