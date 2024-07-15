@@ -4,8 +4,8 @@ import streamlit as st
 
 @st.cache_data
 def load_data():
-    conn = sqlite3.connect("C:\Users\Administrator\Desktop\games.sqbpro")  # Adjust the path as necessary
-    query = "SELECT * FROM games.db"  # Adjust the query as necessary
+    conn = sqlite3.connect("C:\Users\Administrator\Desktop\games.sqbpro")  
+    query = "SELECT * FROM games.db"  
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
@@ -90,7 +90,7 @@ def load_data():
 # Simple user authentication
 def check_password():
     def password_entered():
-        if st.session_state["password"] == "password123":  # Replace with your password
+        if st.session_state["password"] == "password123":  
             st.session_state["password_correct"] = True
             del st.session_state["password"]  # don't store password in session state
         else:
