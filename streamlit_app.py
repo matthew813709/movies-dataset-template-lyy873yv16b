@@ -38,6 +38,17 @@ def load_data():
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
+def insert_new_game(name, platform, year_of_release, na_sales):
+    conn = sqlite3.connect('path_to_your_database.db')  # Adjust the path as necessary
+    cursor = conn.cursor()
+    
+    query = """
+    INSERT INTO game_data (Name, Platform, Year_of_Release, NA_sales) 
+    VALUES (?, ?, ?, ?);
+    """
+    cursor.execute(query, (name, platform, year_of_release, na_sales))
+    conn.commit()
+    conn.close()
 
 # Example of using load_data function
 df = load_data()
