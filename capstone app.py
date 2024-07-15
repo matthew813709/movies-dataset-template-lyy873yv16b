@@ -3,7 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-DATABASE_PATH = 'path_to_your_database.db'
+DATABASE_PATH = '\Desktop\games.sqbpro'
 
 def connect_db():
     return sqlite3.connect(DATABASE_PATH)
