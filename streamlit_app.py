@@ -30,6 +30,19 @@ def edit_entries(df):
             df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales']] = [new_name, new_platform, new_year, new_na_sales]
             st.success("Entry updated successfully!")
 
+
+# Function to load data from SQLite
+def load_data():
+    conn = sqlite3.connect('path_to_your_database.db')  # Adjust the path as necessary
+    query = "SELECT * FROM game_data WHERE Name LIKE '%Mario%' ORDER BY Platform;"
+    df = pd.read_sql_query(query, conn)
+    conn.close()
+    return df
+
+# Example of using load_data function
+df = load_data()
+print(df)
+
 def main():
     if check_password():
         st.title("PyGame - A video game database")
