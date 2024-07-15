@@ -5,7 +5,7 @@ import streamlit as st
 @st.cache_data
 def load_data():
     conn = sqlite3.connect("C:\Users\Administrator\Desktop\games.sqbpro")  # Adjust the path as necessary
-    query = "SELECT * FROM your_table_name"  # Adjust the query as necessary
+    query = "SELECT * FROM games.db"  # Adjust the query as necessary
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
