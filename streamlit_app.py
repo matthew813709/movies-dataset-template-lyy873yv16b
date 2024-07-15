@@ -109,6 +109,12 @@ def check_password():
         # Password correct
         return True
 st.title("PyGame - A video game database")
+import streamlit as st
+import requests
+
+st.title("PyGame - A video game database")
+
+base_url = "http://127.0.0.1:5000/"
 
 st.write("### Available REST API Endpoints")
 st.code("""
@@ -119,10 +125,28 @@ PUT /games/<game_id>
 DELETE /games/<game_id>
 """)
 
-st.write("""
-These endpoints allow CRUD operations on the game data contained in the SQLite database. 
-Example usage can be demonstrated using tools like Postman or by scripting HTTP requests.
-""")
+# Show all games
+if st.button("Show All Games"):
+    response = requests.get(base_url + 'games')
+    st.write(response.json())
+
+# Add a game
+st.write("### Add a Game")
+name = st.text_input("Name")
+platform = st.text_input("Platform")
+year_of_release = st.number_input("Year of Release", step=1)
+na_sales = st.number_input("NA Sales")
+
+if st.button("Add Game"):
+    new_game = {
+        "Name": name,
+        "Platform": platform,
+        "Year_of_Release": year_of_release,
+        "NA_sales": na_sales
+    }
+    response = requests.post(base_url + 'games', json=new_game)
+    st.write(response.json())
+    
 # Function to display and edit entries
 def edit_entries(df):
     st.write("### Edit Entries")
