@@ -108,7 +108,21 @@ def check_password():
     else:
         # Password correct
         return True
+st.title("PyGame - A video game database")
 
+st.write("### Available REST API Endpoints")
+st.code("""
+GET /games
+GET /games/<game_id>
+POST /games
+PUT /games/<game_id>
+DELETE /games/<game_id>
+""")
+
+st.write("""
+These endpoints allow CRUD operations on the game data contained in the SQLite database. 
+Example usage can be demonstrated using tools like Postman or by scripting HTTP requests.
+""")
 # Function to display and edit entries
 def edit_entries(df):
     st.write("### Edit Entries")
