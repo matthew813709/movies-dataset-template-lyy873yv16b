@@ -3,7 +3,7 @@ import requests
 
 st.title("PyGame - A Video Game Database")
 
-base_url = "http://127.0.0.1:5000/"  # URL of the running Flask server
+base_url = "http://127.0.0.1:5000/"  
 
 st.write("### Available REST API Endpoints")
 st.code("""
