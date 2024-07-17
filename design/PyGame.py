@@ -1,6 +1,7 @@
+import os
 import pandas as pd
 import streamlit as st
-import os
+import altair as alt
 
 # Function to edit entries
 def edit_entries(df):
