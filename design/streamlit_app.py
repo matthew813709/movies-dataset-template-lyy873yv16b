@@ -107,16 +107,7 @@ import requests
 
 st.title("PyGame - A video game database")
 
-base_url = "http://127.0.0.1:5000/"
 
-st.write("### Available REST API Endpoints")
-st.code("""
-GET /games
-GET /games/<game_id>
-POST /games
-PUT /games/<game_id>
-DELETE /games/<game_id>
-""")
 
 # Show all games
 if st.button("Show All Games"):
