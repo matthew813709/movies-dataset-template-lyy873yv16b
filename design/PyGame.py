@@ -25,7 +25,7 @@ def edit_entries(df):
 
 # Function to load data from CSV
 def load_data():
-    db_path = r"C:\Users\Administrator\Desktop\games.csv"  # Adjust path as needed
+    db_path = "\games.csv"  # Adjust path as needed
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database file not found at {db_path}")
     
