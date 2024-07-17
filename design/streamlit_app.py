@@ -3,9 +3,10 @@ import pandas as pd
 import sqlite3
 
 def load_data():
-    db_path = r"C:\Users\Administrator\Desktop\Maryville\games.csv"
+    db_path = r"C:\Users\Administrator\Desktop\Maryville\games.csv"  # Adjust path as needed
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database file not found at {db_path}")
+    
     # Read the CSV file using pandas
     df = pd.read_csv(db_path)
     return df
@@ -177,6 +178,8 @@ def load_data():
 df = load_data()
 print(df)
 
+if __name__ == "__main__":
+    main()
 
 # Main function
 def main():
