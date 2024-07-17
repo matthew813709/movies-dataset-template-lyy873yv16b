@@ -26,11 +26,15 @@ def edit_entries(df):
 
 # Function to load data from CSV
 def load_data():
-    db_path = "design/games.csv"  # Adjust path as needed
+    db_path = r"C:\Users\Administrator\Desktop\games.sqbpro"  # Adjust path as needed
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database file not found at {db_path}")
-    
-    df = pd.read_csv(db_path)
+
+    # Connect to the SQLite database
+    conn = sqlite3.connect(db_path)
+    query = "SELECT * FROM game_data"  # Adjust query as needed
+    df = pd.read_sql_query(query, conn)
+    conn.close()
     return df
 
 # Password check function
