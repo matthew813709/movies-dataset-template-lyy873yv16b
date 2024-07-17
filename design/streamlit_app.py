@@ -3,7 +3,7 @@ import altair as alt
 import streamlit as st
 import os
 
-db_path = "C:\Users\Administrator\Desktop\Maryville\game_data.sql"
+db_path = r"C:\Users\Administrator\Desktop\Maryville\game_data.sql"
 if not os.path.exists(db_path):
     raise FileNotFoundError(f"Database file not found at {db_path}")
 conn = sqlite3.connect(db_path)
