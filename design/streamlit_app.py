@@ -1,6 +1,12 @@
 import pandas as pd
 import altair as alt
 import streamlit as st
+import os
+
+db_path = "C:\Users\Administrator\Desktop\games.sqbpro"
+if not os.path.exists(db_path):
+    raise FileNotFoundError(f"Database file not found at {db_path}")
+conn = sqlite3.connect(db_path)
 
 
 def edit_entries(df):
