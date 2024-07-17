@@ -3,18 +3,17 @@ import pandas as pd
 import sqlite3
 
 def load_data():
-    db_path = r"C:\Users\Administrator\Desktop\Maryville\games.csv"  # Adjust path as needed
+    db_path = r"C:\Users\Administrator\Desktop\Maryville\games.csv"  # Correct path
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database file not found at {db_path}")
-    
+
     # Read the CSV file using pandas
     df = pd.read_csv(db_path)
     return df
-    
+
 def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
-
     game_names = df['Name'].str.contains(search_query, case=False, na=False)
     filtered_games = df[game_names]
 
