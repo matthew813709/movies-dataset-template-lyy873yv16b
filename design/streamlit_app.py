@@ -1,14 +1,15 @@
-import pandas as pd
-import altair as alt
-import streamlit as st
 import os
+import pandas as pd
+import sqlite3
 
-db_path = "C:\Users\Administrator\Desktop\Maryville\games.csv"
-if not os.path.exists(db_path):
-    raise FileNotFoundError(f"Database file not found at {db_path}")
-conn = sqlite3.connect(db_path)
-
-
+def load_data():
+    db_path = r"C:\Users\Administrator\Desktop\Maryville\games.csv"
+    if not os.path.exists(db_path):
+        raise FileNotFoundError(f"Database file not found at {db_path}")
+    # Read the CSV file using pandas
+    df = pd.read_csv(db_path)
+    return df
+    
 def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
@@ -57,6 +58,7 @@ def main():
     if check_password():
         st.title("PyGame - A video game database")
         df = load_data()
+        st.write(df)  # Display the dataframe for debugging
         edit_entries(df)
         
         st.sidebar.header("Filter Options")
