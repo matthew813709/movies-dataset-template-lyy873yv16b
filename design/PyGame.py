@@ -105,6 +105,8 @@ def main():
         )
 
         st.altair_chart(scatter_plot, use_container_width=True)
+        st.altair_chart(scatter_plot2, use_container_width=True)
+        st.altair_chart(scatter_plot3, use_container_width=True)
         st.write(filtered_df)  # Show the filtered dataframe
 
 if __name__ == "__main__":
