@@ -2,13 +2,6 @@ import pandas as pd
 import altair as alt
 import streamlit as st
 
-@st.cache_data
-def load_data():
-    conn = sqlite3.connect("C:\Users\Administrator\Desktop\games.sqbpro")  
-    query = "SELECT * FROM games.db"  
-    df = pd.read_sql_query(query, conn)
-    conn.close()
-    return df
 
 def edit_entries(df):
     st.write("### Edit Entries")
