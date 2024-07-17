@@ -79,6 +79,30 @@ def main():
             height=400,
             title='Sales by Year'
         )
+        
+        # Altair scatter plot configuration
+        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='EU_sales:Q',
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'EU_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title='Sales by Year'
+        )
+        
+        # Altair scatter plot configuration
+        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='JP_sales:Q',
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'JP_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title='Sales by Year'
+        )
 
         st.altair_chart(scatter_plot, use_container_width=True)
         st.write(filtered_df)  # Show the filtered dataframe
