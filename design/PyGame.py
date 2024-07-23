@@ -65,8 +65,31 @@ def main():
         height=400,
         title='Sales by Year'
     )
-    
+      scatter_plot2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        x='Year_of_Release:O',
+        y='EU_sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'EU_sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title='Sales by Year'
+    )
+      scatter_plot3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        x='Year_of_Release:O',
+        y='JP_sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'JP_sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title='Sales by Year'
+    )
+
+
     st.altair_chart(scatter_plot, use_container_width=True)
+    st.altair_chart(scatter_plot2, use_container_width=True)
+    st.altair_chart(scatter_plot3, use_container_width=True)
 
     
     # Comment section
