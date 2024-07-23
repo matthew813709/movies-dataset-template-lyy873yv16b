@@ -3,6 +3,16 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
+def load_data():
+    csv_path = "design/game_data.sql"  # Path to the SQL file
+    if not os.path.exists(sql_path):
+        st.error(f"CSV file not found at {sql_path}")
+        return None
+    
+    # Load data from the CSV file
+    df = pd.read_csv(csv_path)
+    return df
+
 def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
