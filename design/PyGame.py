@@ -129,8 +129,8 @@ st.altair_chart(scatter_plot_3, use_container_width=True)
 st.write(filtered_df)
 
     # Comment section
-    display_comments()
-    add_comment()
+display_comments()
+add_comment()
 
 if __name__ == "__main__":
     main()
