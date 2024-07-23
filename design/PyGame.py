@@ -3,10 +3,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-
-
 def load_data():
-    csv_path = "design/games.csv"  # Path to the CSV file
+    csv_path = "C:\\Users\\Administrator\\Desktop\\games.csv"  # Path to the CSV file
     if not os.path.exists(csv_path):
         st.error(f"CSV file not found at {csv_path}")
         return None
@@ -39,25 +37,6 @@ def edit_entries(df):
             df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales']] = [new_name, new_platform, new_year, new_na_sales]
             st.success("Entry updated successfully!")
 
-def main():
-    st.title("PyGame - A video game database")
-    
-    df = load_data()
-    if df is None:
-        return
-    
-    st.write(df)  # Show the full dataframe
-    edit_entries(df)
-    
-    # Filter options in the sidebar
-    st.sidebar.header("Filter Options")
-    years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
-    filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
-
-# Initialize the session state for comments
-if 'comments' not in st.session_state:
-    st.session_state['comments'] = []
-
 def display_comments():
     """Display all the comments"""
     st.subheader("Comments Section:")
@@ -78,59 +57,64 @@ def add_comment():
 
 def main():
     st.title("PyGame - A video game database")
-    df = load_data()  # This function should be defined elsewhere in your code
-    st.write(df)  # Show the full dataframe
     
-    edit_entries(df)  # This function should be defined elsewhere in your code
+    df = load_data()
+    if df is None:
+        return
+    
+    st.write(df)  # Show the full dataframe
+    edit_entries(df)
     
     # Filter options in the sidebar
     st.sidebar.header("Filter Options")
     years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
     
-     # Altair scatter plot configuration
+    # Visualization using Altair
     scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',
-            y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
-            color='Platform:N',
-            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-        ).interactive().properties(
-            width=800,
-            height=400,
-            title="Sales by Year"
-        )
-    scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',
-            y='JP_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
-            color='Platform:N',
-            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-        ).interactive().properties(
-            width=800,
-            height=400,
-            title="Sales by Year"
-        )
-    scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',
-            y='EU_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
-            color='Platform:N',
-            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-        ).interactive().properties(
-            width=800,
-            height=400,
-            title="Sales by Year"
-        )
+        x='Year_of_Release:O',
+        y='NA_sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title='Sales by Year (NA_sales)'
+    )
 
-        # Display the scatter plot
-st.altair_chart(scatter_plot, use_container_width=True)
-st.altair_chart(scatter_plot_2, use_container_width=True)
-st.altair_chart(scatter_plot_3, use_container_width=True)
+    scatter_plot2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        x='Year_of_Release:O',
+        y='EU_sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'EU_sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title='Sales by Year (EU_sales)'
+    )
+    
+    scatter_plot3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        x='Year_of_Release:O',
+        y='JP_sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'JP_sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title='Sales by Year (JP_sales)'
+    )
 
-        # Optionally display the filtered dataframe (for debugging or user verification)
-st.write(filtered_df)
-
+    # Render all three charts
+    st.altair_chart(scatter_plot, use_container_width=True)
+    st.altair_chart(scatter_plot2, use_container_width=True)
+    st.altair_chart(scatter_plot3, use_container_width=True)
+    
+    # Initialize the session state for comments
+    if 'comments' not in st.session_state:
+        st.session_state['comments'] = []
+    
     # Comment section
-display_comments()
-add_comment()
-
+    display_comments()
+    add_comment()
 if __name__ == "__main__":
     main()
