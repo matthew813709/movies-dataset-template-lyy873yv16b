@@ -25,9 +25,13 @@ def edit_entries(df):
             st.success("Entry updated successfully!")
 
 def load_data():
-    db_path = "C:\Users\Administrator\Desktop\games.sqbpro"  # Ensure this path is correct
+    db_path = "games.sqbpro"  # Adjust path as needed
+    st.write("Current working directory:", os.getcwd())
+    st.write("Files in the current directory:", os.listdir('.'))
+  
     if not os.path.exists(db_path):
-        raise FileNotFoundError(f"Database file not found at {db_path}")
+        st.error(f"Database file not found at {db_path}")
+        return None
     
     # Your existing code to load data from the SQLite database
     conn = sqlite3.connect(db_path)
