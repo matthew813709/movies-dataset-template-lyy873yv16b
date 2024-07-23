@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 
 def load_data():
-    csv_path = "design/games.sqbpro"  # Path to the CSV file
+    csv_path = "design/games.csv"  # Path to the CSV file
     if not os.path.exists(csv_path):
         st.error(f"CSV file not found at {csv_path}")
         return None
