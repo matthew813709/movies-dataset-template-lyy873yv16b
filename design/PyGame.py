@@ -88,20 +88,46 @@ def main():
     years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
     
-    # Your existing visualization code here
-    scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='NA_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year'
-    )
-    
-    st.altair_chart(scatter_plot, use_container_width=True)
-    
+     # Altair scatter plot configuration
+        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title="Sales by Year"
+        )
+        scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='JP_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title="Sales by Year"
+        )
+        scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='EU_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title="Sales by Year"
+        )
+
+        # Display the scatter plot
+        st.altair_chart(scatter_plot, use_container_width=True)
+        st.altair_chart(scatter_plot_2, use_container_width=True)
+        st.altair_chart(scatter_plot_3, use_container_width=True)
+
+        # Optionally display the filtered dataframe (for debugging or user verification)
+        st.write(filtered_df)
+
     # Comment section
     display_comments()
     add_comment()
