@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 
 def load_data():
-    csv_path = "C:\\Users\\Administrator\\Desktop\\games.csv"  # Update to your correct CSV file path
+    csv_path = "/games.csv"  # Path to the CSV file
     if not os.path.exists(csv_path):
         st.error(f"CSV file not found at {csv_path}")
         return None
@@ -12,7 +12,8 @@ def load_data():
     # Load data from the CSV file
     df = pd.read_csv(csv_path)
     return df
-    def edit_entries(df):
+
+def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
     
@@ -31,7 +32,7 @@ def load_data():
         new_platform = st.text_input("Platform", game_data['Platform'])
         new_year = st.number_input("Year of Release", int(game_data['Year_of_Release']))
         new_na_sales = st.number_input("NA Sales", float(game_data['NA_sales']))
-        
+
         if st.button("Save Changes"):
             df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales']] = [new_name, new_platform, new_year, new_na_sales]
             st.success("Entry updated successfully!")
