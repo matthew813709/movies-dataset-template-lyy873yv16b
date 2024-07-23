@@ -34,7 +34,7 @@ def edit_entries(df):
         new_platform = st.text_input("Platform", game_data['Platform'])
         new_year = st.number_input("Year of Release", int(game_data['Year_of_Release']))
         new_na_sales = st.number_input("NA Sales", float(game_data['NA_sales']))
-
+        
         if st.button("Save Changes"):
             df.loc[df['Name'] == selected_game, ['Name', 'Platform', 'Year_of_Release', 'NA_sales']] = [new_name, new_platform, new_year, new_na_sales]
             st.success("Entry updated successfully!")
@@ -53,50 +53,6 @@ def main():
     st.sidebar.header("Filter Options")
     years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
-    
-    scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='NA_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year (NA_sales)'
-    )
-
-    scatter_plot2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='EU_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'EU_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year (EU_sales)'
-    )
-    
-    scatter_plot3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='JP_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'JP_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year (JP_sales)'
-    )
-
-    # Render all three charts
-    st.altair_chart(scatter_plot, use_container_width=True)
-    st.altair_chart(scatter_plot2, use_container_width=True)
-    st.altair_chart(scatter_plot3, use_container_width=True)
-    
-    # Comment section
-    display_comments()
-    add_comment()
-
-import streamlit as st
 
 # Initialize the session state for comments
 if 'comments' not in st.session_state:
