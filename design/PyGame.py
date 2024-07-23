@@ -116,5 +116,7 @@ def main():
     # Comment section
     display_comments()
     add_comment()
+    edit_comment()
+
 if __name__ == "__main__":
     main()
