@@ -25,7 +25,7 @@ def edit_entries(df):
             st.success("Entry updated successfully!")
 
 def load_data():
-    db_path = "C:\\Users\\Administrator\\Desktop\\games.sqbpro"  # Ensure this path is correct
+    db_path = "C:\Users\Administrator\Desktop\games.sqbpro"  # Ensure this path is correct
     if not os.path.exists(db_path):
         raise FileNotFoundError(f"Database file not found at {db_path}")
     
