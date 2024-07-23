@@ -25,7 +25,7 @@ def edit_entries(df):
             st.success("Entry updated successfully!")
 
 def load_data():
-    db_path = "games.sqbpro"  # Adjust path as needed
+    db_path = "C:\Users\Administrator\Desktop\games.csv"  # Adjust path as needed
     st.write("Current working directory:", os.getcwd())
     st.write("Files in the current directory:", os.listdir('.'))
   
