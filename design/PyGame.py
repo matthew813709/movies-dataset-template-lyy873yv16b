@@ -69,27 +69,26 @@ def edit_comment():
             del st.session_state['edit_index']
             del st.session_state['edit_text']
             st.experimental_rerun()
+            
 def check_password():
+    """Function to check the password and manage the session state"""
     def password_entered():
-        if st.session_state["password"] == "password123":  
+        if st.session_state["password"] == "password123":  # Set your own password here
             st.session_state["password_correct"] = True
-            del st.session_state["password"]  # don't store password in session state
+            del st.session_state["password"]  # Don't store password
         else:
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        # First run, show inputs for the user to enter a password
+        # Show the password input if the user hasn't entered a correct password yet
         st.text_input("Password", type="password", on_change=password_entered, key="password")
         return False
     elif not st.session_state["password_correct"]:
-        # Password not correct, show input + error
-        st.text_input("Password", type="password", on_change=password_entered, key="password")
-        st.error("😕 Password incorrect")
+        st.error("Password incorrect")
         return False
     else:
-        # Password correct
         return True
-        
+
 def main():
     st.title("PyGame - A video game database")
     
