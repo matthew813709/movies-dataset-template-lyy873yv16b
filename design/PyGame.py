@@ -1,22 +1,3 @@
-import os
-import streamlit as st
-import pandas as pd
-import altair as alt
-import sqlite3
-
-def load_data():
-    db_path = r"C:\Users\Administrator\Desktop\games.sqbpro"  # Raw string notation
-    if not os.path.exists(db_path):
-        st.error(f"Database file not found at {db_path}")
-        return None
-    
-    # Load data from the SQLite database
-    conn = sqlite3.connect(db_path)
-    query = "SELECT * FROM game_data"  # Adjust your SQL query as needed
-    df = pd.read_sql_query(query, conn)
-    conn.close()
-    return df
-
 def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
@@ -49,14 +30,14 @@ def main():
         return
     
     st.write(df)  # Show the full dataframe
-    edit_entries(df)  # This function should be defined elsewhere in your code
+    edit_entries(df)
     
     # Filter options in the sidebar
     st.sidebar.header("Filter Options")
     years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
     
-    # Your existing visualization code here
+    # Visualization using Altair
     scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
         x='Year_of_Release:O',
         y='NA_sales:Q',
@@ -72,7 +53,3 @@ def main():
     
     # Comment section
     display_comments()
-    add_comment()
-
-if __name__ == "__main__":
-    main()
