@@ -4,9 +4,9 @@ import pandas as pd
 import altair as alt
 
 def load_data():
-    csv_path = "design/game_data.sql"  # Path to the SQL file
-    if not os.path.exists(sql_path):
-        st.error(f"CSV file not found at {sql_path}")
+    csv_path = "design/game_data.sql"  # Path to the CSV file
+    if not os.path.exists(csv_path):
+        st.error(f"CSV file not found at {csv_path}")
         return None
     
     # Load data from the CSV file
@@ -72,7 +72,7 @@ def add_comment():
             st.success("Comment added!")
         else:
             st.error("Comment cannot be empty.")
-            
+
 def check_password():
     """Function to check the password and manage the session state"""
     def password_entered():
@@ -156,7 +156,5 @@ def main():
         edit_comment()
         add_comment()
 
-if __name__ == "__main__":
-    main()
 if __name__ == "__main__":
     main()
