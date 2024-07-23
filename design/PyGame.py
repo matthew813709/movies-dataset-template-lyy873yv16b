@@ -55,6 +55,21 @@ def add_comment():
             st.error("Comment cannot be empty.")
         st.experimental_rerun()
 
+def edit_comment():
+    """Edit an existing comment"""
+    if 'edit_index' in st.session_state:
+        st.subheader("Edit Comment")
+        edited_comment = st.text_area("Edit your comment here:", st.session_state['edit_text'])
+        if st.button("Save Changes"):
+            st.session_state['comments'][st.session_state['edit_index']] = edited_comment
+            del st.session_state['edit_index']
+            del st.session_state['edit_text']
+            st.experimental_rerun()
+        if st.button("Cancel"):
+            del st.session_state['edit_index']
+            del st.session_state['edit_text']
+            st.experimental_rerun()
+
 def main():
     st.title("PyGame - A video game database")
     
