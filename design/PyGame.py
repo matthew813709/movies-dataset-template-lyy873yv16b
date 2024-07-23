@@ -25,10 +25,7 @@ def edit_entries(df):
             st.success("Entry updated successfully!")
 
 def load_data():
-    db_path = "C:\Users\Administrator\Desktop\games.sqbpro" 
-    st.write("Current working directory:", os.getcwd())
-    st.write("Files in the current directory:", os.listdir('.'))
-  
+    db_path = r"C:\Users\Administrator\Desktop\games.sqbpro"  # Raw string notation
     if not os.path.exists(db_path):
         st.error(f"Database file not found at {db_path}")
         return None
@@ -39,6 +36,7 @@ def load_data():
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
+
 
 # Password check function
 def check_password():
