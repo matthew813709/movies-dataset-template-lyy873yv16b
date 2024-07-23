@@ -89,7 +89,7 @@ def main():
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
     
      # Altair scatter plot configuration
-        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+    scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='NA_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
             color='Platform:N',
@@ -99,7 +99,7 @@ def main():
             height=400,
             title="Sales by Year"
         )
-        scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+    scatter_plot_2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='JP_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
             color='Platform:N',
@@ -109,7 +109,7 @@ def main():
             height=400,
             title="Sales by Year"
         )
-        scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+    scatter_plot_3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
             x='Year_of_Release:O',
             y='EU_sales:Q',  # Replace 'NA_sales' with the appropriate column if necessary
             color='Platform:N',
