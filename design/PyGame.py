@@ -1,3 +1,18 @@
+import os
+import streamlit as st
+import pandas as pd
+import altair as alt
+
+def load_data():
+    csv_path = "C:\\Users\\Administrator\\Desktop\\games.csv"  # Path to the CSV file
+    if not os.path.exists(csv_path):
+        st.error(f"CSV file not found at {csv_path}")
+        return None
+    
+    # Load data from the CSV file
+    df = pd.read_csv(csv_path)
+    return df
+
 def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
@@ -53,3 +68,7 @@ def main():
     
     # Comment section
     display_comments()
+    add_comment()
+
+if __name__ == "__main__":
+    main()
