@@ -5,11 +5,11 @@ import altair as alt
 
 def load_data():
     csv_path = "design/game_data.sql"  
-    if not os.path.exists(csv_path):
-        st.error(f"CSV file not found at {csv_path}")
+    if not os.path.exists(SQL_path):
+        st.error(f"CSV file not found at {SQL_path}")
         return None
     
-    # Load data from the CSV file
+    # Load data from the SQL file
     df = pd.read_csv(csv_path)
     return df
 
