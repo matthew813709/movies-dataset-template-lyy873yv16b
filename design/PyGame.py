@@ -126,7 +126,7 @@ st.altair_chart(scatter_plot_2, use_container_width=True)
 st.altair_chart(scatter_plot_3, use_container_width=True)
 
         # Optionally display the filtered dataframe (for debugging or user verification)
-        st.write(filtered_df)
+st.write(filtered_df)
 
     # Comment section
     display_comments()
