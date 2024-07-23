@@ -3,16 +3,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-def load_data():
-    csv_path = "design/game_data.sql"  
-    if not os.path.exists(SQL_path):
-        st.error(f"CSV file not found at {SQL_path}")
-        return None
-    
-    # Load data from the SQL file
-    df = pd.read_csv(csv_path)
-    return df
-
 def edit_entries(df):
     st.write("### Edit Entries")
     search_query = st.text_input("Search for a game")
@@ -38,22 +28,14 @@ def edit_entries(df):
             st.success("Entry updated successfully!")
 
 def display_comments():
-    """Display all the comments"""
+    """Display all the comments and provide edit functionality"""
     st.subheader("Comments Section:")
-    for comment in st.session_state['comments']:
+    for i, comment in enumerate(st.session_state['comments']):
         st.write(comment)
-
-def add_comment():
-    """Prompt user to add a new comment"""
-    st.subheader("Add a Comment")
-    new_comment = st.text_area("Write your comment here:")
-    if st.button("Submit Comment"):
-        if new_comment.strip():
-            st.session_state['comments'].append(new_comment)
-            st.success("Comment added!")
-        else:
-            st.error("Comment cannot be empty.")
-        st.experimental_rerun()
+        if st.button("Edit", key=f"edit_{i}"):
+            st.session_state['edit_index'] = i
+            st.session_state['edit_text'] = comment
+            st.experimental_rerun()
 
 def edit_comment():
     """Edit an existing comment"""
@@ -69,6 +51,17 @@ def edit_comment():
             del st.session_state['edit_index']
             del st.session_state['edit_text']
             st.experimental_rerun()
+
+def add_comment():
+    """Prompt user to add a new comment"""
+    st.subheader("Add a Comment")
+    new_comment = st.text_area("Write your comment here:")
+    if st.button("Submit Comment"):
+        if new_comment.strip():
+            st.session_state['comments'].append(new_comment)
+            st.success("Comment added!")
+        else:
+            st.error("Comment cannot be empty.")
             
 def check_password():
     """Function to check the password and manage the session state"""
@@ -90,67 +83,70 @@ def check_password():
         return True
 
 def main():
-    st.title("PyGame - A video game database")
-    
-    df = load_data()
-    if df is None:
-        return
-    
-    st.write(df)  # Show the full dataframe
-    edit_entries(df)
-    
-    # Filter options in the sidebar
-    st.sidebar.header("Filter Options")
-    years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
-    filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
-    
-    # Visualization using Altair
-    scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='NA_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year (NA_sales)'
-    )
+    if check_password():
+        st.title("PyGame - A video game database")
 
-    scatter_plot2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='EU_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'EU_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year (EU_sales)'
-    )
-    
-    scatter_plot3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='JP_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'JP_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year (JP_sales)'
-    )
+        df = load_data()
+        if df is None:
+            return
 
-    # Render all three charts
-    st.altair_chart(scatter_plot, use_container_width=True)
-    st.altair_chart(scatter_plot2, use_container_width=True)
-    st.altair_chart(scatter_plot3, use_container_width=True)
-    
-    # Initialize the session state for comments
-    if 'comments' not in st.session_state:
-        st.session_state['comments'] = []
-    
-    # Comment section
-    display_comments()
-    add_comment()
-    edit_comment()
+        st.write(df)  # Show the full dataframe
+        edit_entries(df)
+        
+        # Filter options in the sidebar
+        st.sidebar.header("Filter Options")
+        years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
+        filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
 
+        # Visualization using Altair
+        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='NA_sales:Q',
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title='Sales by Year (NA_sales)'
+        )
+
+        scatter_plot2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='EU_sales:Q',
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'EU_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title='Sales by Year (EU_sales)'
+        )
+        
+        scatter_plot3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='JP_sales:Q',
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'JP_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title='Sales by Year (JP_sales)'
+        )
+
+        # Render all three charts
+        st.altair_chart(scatter_plot, use_container_width=True)
+        st.altair_chart(scatter_plot2, use_container_width=True)
+        st.altair_chart(scatter_plot3, use_container_width=True)
+        
+        # Initialize the session state for comments
+        if 'comments' not in st.session_state:
+            st.session_state['comments'] = []
+        
+        # Comment section
+        display_comments()
+        edit_comment()
+        add_comment()
+
+if __name__ == "__main__":
+    main()
 if __name__ == "__main__":
     main()
