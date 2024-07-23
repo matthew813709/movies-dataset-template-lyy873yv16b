@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 
 def load_data():
-    csv_path = "design/game_data.sql"  # Path to the CSV file
+    csv_path = "design/games.csv"  # Path to the CSV file
     if not os.path.exists(csv_path):
         st.error(f"CSV file not found at {csv_path}")
         return None
@@ -38,14 +38,22 @@ def edit_entries(df):
             st.success("Entry updated successfully!")
 
 def display_comments():
-    """Display all the comments and provide edit functionality"""
+    """Display all the comments"""
     st.subheader("Comments Section:")
-    for i, comment in enumerate(st.session_state['comments']):
+    for comment in st.session_state['comments']:
         st.write(comment)
-        if st.button("Edit", key=f"edit_{i}"):
-            st.session_state['edit_index'] = i
-            st.session_state['edit_text'] = comment
-            st.experimental_rerun()
+
+def add_comment():
+    """Prompt user to add a new comment"""
+    st.subheader("Add a Comment")
+    new_comment = st.text_area("Write your comment here:")
+    if st.button("Submit Comment"):
+        if new_comment.strip():
+            st.session_state['comments'].append(new_comment)
+            st.success("Comment added!")
+        else:
+            st.error("Comment cannot be empty.")
+        st.experimental_rerun()
 
 def edit_comment():
     """Edit an existing comment"""
@@ -61,18 +69,6 @@ def edit_comment():
             del st.session_state['edit_index']
             del st.session_state['edit_text']
             st.experimental_rerun()
-
-def add_comment():
-    """Prompt user to add a new comment"""
-    st.subheader("Add a Comment")
-    new_comment = st.text_area("Write your comment here:")
-    if st.button("Submit Comment"):
-        if new_comment.strip():
-            st.session_state['comments'].append(new_comment)
-            st.success("Comment added!")
-        else:
-            st.error("Comment cannot be empty.")
-
 def check_password():
     """Function to check the password and manage the session state"""
     def password_entered():
