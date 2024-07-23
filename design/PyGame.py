@@ -54,7 +54,6 @@ def main():
     years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
     
-    # Visualization using Altair
     scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
         x='Year_of_Release:O',
         y='NA_sales:Q',
@@ -63,8 +62,9 @@ def main():
     ).interactive().properties(
         width=800,
         height=400,
-        title='Sales by Year'
+        title='Sales by Year (NA_sales)'
     )
+
     scatter_plot2 = alt.Chart(filtered_df).mark_circle(size=60).encode(
         x='Year_of_Release:O',
         y='EU_sales:Q',
@@ -73,8 +73,9 @@ def main():
     ).interactive().properties(
         width=800,
         height=400,
-        title='Sales by Year'
+        title='Sales by Year (EU_sales)'
     )
+    
     scatter_plot3 = alt.Chart(filtered_df).mark_circle(size=60).encode(
         x='Year_of_Release:O',
         y='JP_sales:Q',
@@ -83,14 +84,13 @@ def main():
     ).interactive().properties(
         width=800,
         height=400,
-        title='Sales by Year'
+        title='Sales by Year (JP_sales)'
     )
 
-
+    # Render all three charts
     st.altair_chart(scatter_plot, use_container_width=True)
     st.altair_chart(scatter_plot2, use_container_width=True)
     st.altair_chart(scatter_plot3, use_container_width=True)
-
     
     # Comment section
     display_comments()
