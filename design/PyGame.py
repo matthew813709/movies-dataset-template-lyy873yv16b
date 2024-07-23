@@ -3,62 +3,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-import streamlit as st
 
-# Initialize the session state for comments
-if 'comments' not in st.session_state:
-    st.session_state['comments'] = []
-
-def display_comments():
-    """Display all the comments"""
-    st.subheader("Comments Section:")
-    for comment in st.session_state['comments']:
-        st.write(comment)
-
-def add_comment():
-    """Prompt user to add a new comment"""
-    st.subheader("Add a Comment")
-    new_comment = st.text_area("Write your comment here:")
-    if st.button("Submit Comment"):
-        if new_comment.strip():
-            st.session_state['comments'].append(new_comment)
-            st.success("Comment added!")
-        else:
-            st.error("Comment cannot be empty.")
-        st.experimental_rerun()
-
-def main():
-    st.title("PyGame - A video game database")
-    df = load_data()  # This function should be defined elsewhere in your code
-    st.write(df)  # Show the full dataframe
-    
-    edit_entries(df)  # This function should be defined elsewhere in your code
-    
-    # Filter options in the sidebar
-    st.sidebar.header("Filter Options")
-    years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
-    filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
-    
-    # Your existing visualization code here
-    scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-        x='Year_of_Release:O',
-        y='NA_sales:Q',
-        color='Platform:N',
-        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-    ).interactive().properties(
-        width=800,
-        height=400,
-        title='Sales by Year'
-    )
-    
-    st.altair_chart(scatter_plot, use_container_width=True)
-    
-    # Comment section
-    display_comments()
-    add_comment()
-
-if __name__ == "__main__":
-    main()
 
 def load_data():
     csv_path = "design/games.csv"  # Path to the CSV file
@@ -110,6 +55,61 @@ def main():
     filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
     
     # Visualization using Altair
+    scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+        x='Year_of_Release:O',
+        y='NA_sales:Q',
+        color='Platform:N',
+        tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+    ).interactive().properties(
+        width=800,
+        height=400,
+        title='Sales by Year'
+    )
+    
+    st.altair_chart(scatter_plot, use_container_width=True)
+
+    
+    # Comment section
+    display_comments()
+    add_comment()
+
+import streamlit as st
+
+# Initialize the session state for comments
+if 'comments' not in st.session_state:
+    st.session_state['comments'] = []
+
+def display_comments():
+    """Display all the comments"""
+    st.subheader("Comments Section:")
+    for comment in st.session_state['comments']:
+        st.write(comment)
+
+def add_comment():
+    """Prompt user to add a new comment"""
+    st.subheader("Add a Comment")
+    new_comment = st.text_area("Write your comment here:")
+    if st.button("Submit Comment"):
+        if new_comment.strip():
+            st.session_state['comments'].append(new_comment)
+            st.success("Comment added!")
+        else:
+            st.error("Comment cannot be empty.")
+        st.experimental_rerun()
+
+def main():
+    st.title("PyGame - A video game database")
+    df = load_data()  # This function should be defined elsewhere in your code
+    st.write(df)  # Show the full dataframe
+    
+    edit_entries(df)  # This function should be defined elsewhere in your code
+    
+    # Filter options in the sidebar
+    st.sidebar.header("Filter Options")
+    years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
+    filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
+    
+    # Your existing visualization code here
     scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
         x='Year_of_Release:O',
         y='NA_sales:Q',
