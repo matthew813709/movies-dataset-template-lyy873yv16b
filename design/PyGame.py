@@ -175,7 +175,7 @@ def save_email(email):
     else:
         st.warning("Email already registered.")
         
-        # Comment section
+    # Comment section
         display_comments()
         edit_comment()
         add_comment()
