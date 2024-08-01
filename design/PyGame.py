@@ -146,13 +146,9 @@ def main():
         # Initialize the session state for comments
         if 'comments' not in st.session_state:
             st.session_state['comments'] = []
-        
-        # Comment section
-        display_comments()
-        edit_comment()
-        add_comment()
 
-def register_email():
+
+    def register_email():
     st.write("## Register Your Email")
     email = st.text_input("Enter your email:")
     if st.button("Register"):
@@ -178,7 +174,15 @@ def save_email(email):
         emails_df.to_csv(email_file, index=False)
     else:
         st.warning("Email already registered.")
-      
+        
+        # Comment section
+        display_comments()
+        edit_comment()
+        add_comment()
+        register_email()
+
+
+    
 
 if __name__ == "__main__":
     main()
