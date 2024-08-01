@@ -152,5 +152,32 @@ def main():
         edit_comment()
         add_comment()
 
+def register_email():
+    st.write("## Register Your Email")
+    email = st.text_input("Enter your email:")
+    if st.button("Register"):
+        if email:
+            if "@" not in email or "." not in email:
+                st.error("Please enter a valid email address.")
+            else:
+                save_email(email)
+                st.success("Email registered successfully.")
+        else:
+            st.error("Email cannot be empty.")
+def save_email(email):
+    email_file = "registered_emails.csv"
+    
+    if os.path.exists(email_file):
+        emails_df = pd.read_csv(email_file)
+    else:
+        emails_df = pd.DataFrame(columns=["Email"])
+    
+    if email not in emails_df["Email"].values:
+        new_email = pd.DataFrame({"Email": [email]})
+        emails_df = pd.concat([emails_df, new_email], ignore_index=True)
+        emails_df.to_csv(email_file, index=False)
+    else:
+        st.warning("Email already registered.")
+
 if __name__ == "__main__":
     main()
