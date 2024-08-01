@@ -181,7 +181,7 @@ def main():
         register_email()
 
  # Add HomePage Link
-        st.markdown("[MaryVille University](https://www.maryville.edu/)", unsafe_allow_html=True)
+        st.markdown("[Maryville University](https://www.maryville.edu/)", unsafe_allow_html=True)
     
 
 if __name__ == "__main__":
