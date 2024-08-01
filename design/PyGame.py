@@ -178,6 +178,7 @@ def save_email(email):
         emails_df.to_csv(email_file, index=False)
     else:
         st.warning("Email already registered.")
+      
 
 if __name__ == "__main__":
     main()
