@@ -148,7 +148,7 @@ def main():
             st.session_state['comments'] = []
 
 
-    def register_email():
+def register_email():
     st.write("## Register Your Email")
     email = st.text_input("Enter your email:")
     if st.button("Register"):
