@@ -160,9 +160,14 @@ def main():
 
         # link back to Maryville.edu.com
         st.markdown("[Maryville University](https://www.maryville.edu)")
+
+        # link back to github
+        st.markdown("[Matthew's Github](https://github.com/matthew813709)")
         
         # link back to google.com
         st.markdown("[Back to Google](https://www.google.com)")
+
+
 
 
 
