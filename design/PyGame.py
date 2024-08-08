@@ -183,7 +183,7 @@ def main():
 
 def img_to_bytes(img_path):
     import base64
-    with open(r"C:\Users\Administrator\Desktop\R.jpg", "rb") as img_file:
+    with open(r"design/R.jpg", "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
 def main():
