@@ -89,32 +89,9 @@ def check_password():
     else:
         return True
 
-def register_email():
-    st.write("## Register Your Email")
-    email = st.text_input("Enter your email:")
-    if st.button("Register"):
-        if email:
-            if "@" not in email or "." not in email:
-                st.error("Please enter a valid email address.")
-            else:
-                save_email(email)
-                st.success("Email registered successfully.")
-        else:
-            st.error("Email cannot be empty.")
-def save_email(email):
-    email_file = "registered_emails.csv"
-    
-    if os.path.exists(email_file):
-        emails_df = pd.read_csv(email_file)
-    else:
-        emails_df = pd.DataFrame(columns=["Email"])
-    
-    if email not in emails_df["Email"].values:
-        new_email = pd.DataFrame({"Email": [email]})
-        emails_df = pd.concat([emails_df, new_email], ignore_index=True)
-        emails_df.to_csv(email_file, index=False)
-    else:
-        st.warning("Email already registered.")
+def img_to_bytes(img_path):
+    with open("design/R.jpg", "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
 def main():
     if check_password():
@@ -171,75 +148,6 @@ def main():
         st.altair_chart(scatter_plot2, use_container_width=True)
         st.altair_chart(scatter_plot3, use_container_width=True)
         
-        # Initialize the session state for comments
-        if 'comments' not in st.session_state:
-            st.session_state['comments'] = []
-        
-        # Comment section
-        display_comments()
-        edit_comment()
-        add_comment()
-        register_email()
-
-def img_to_bytes(img_path):
-    import base64
-    with open(r"C:\Users\Administrator\Desktop\R.jpg", "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-
-def main():
-    if check_password():
-        st.title("PyGame - A video game database")
-        
-        # Add Background Image and Set Text Color to White
-        st.markdown(
-            f"""
-            <style>
-            .stApp {{
-                background: url("data:image/png;base64,{img_to_bytes(r'C:\Users\Administrator\Desktop\R.jpg')}");
-                background-size: cover;
-                color: white;
-            }}
-            .stTextInput > div > div > input {{
-                color: black;
-            }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        # Add HomePage Link
-        st.markdown("[Homepage](https://www.maryville.edu/)", unsafe_allow_html=True)
-        
-        df = load_data()
-        if df is None:
-            return
-        
-        st.write(df)  # Show the full dataframe
-        edit_entries(df)
-        
-        # Email Registration Section
-        register_email()
-        
-        # Filter options in the sidebar
-        st.sidebar.header("Filter Options")
-        years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
-        filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
-        
-        # Visualization using Altair
-        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
-            x='Year_of_Release:O',
-            y='NA_sales:Q',
-            color='Platform:N',
-            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
-        ).interactive().properties(
-            width=800,
-            height=400,
-            title='Sales by Year (NA_sales)'
-        )
-        
-        st.altair_chart(scatter_plot, use_container_width=True)
-        
-        # Other visualizations...
         # Initialize the session state for comments
         if 'comments' not in st.session_state:
             st.session_state['comments'] = []
