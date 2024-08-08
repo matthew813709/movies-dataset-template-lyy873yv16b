@@ -182,7 +182,8 @@ def main():
         register_email()
 
 def img_to_bytes(img_path):
-    with open(img_path, "C:\Users\Administrator\Desktop\R.jpg") as img_file:
+    import base64
+    with open(r"C:\Users\Administrator\Desktop\R.jpg", "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
 def main():
