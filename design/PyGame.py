@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import pandas as pd
 import altair as alt
+import base64
 
 def load_data():
     csv_path = "design/games.csv"  # Path to the CSV file
@@ -180,17 +181,27 @@ def main():
         add_comment()
         register_email()
 
-     st.markdown(
-          f"""
-          <style>
-          .stApp {{
-              background: url("data:image/png;base64,{img_to_bytes("C:\Users\Administrator\Desktop\R.jpg")}");
-              background-size: cover
-          }}
-          </style>
-          """,
-          unsafe_allow_html=True
-      )
+    def img_to_bytes(https://github.com/matthew813709/Gitimages/blob/31d9627d62368f4af603317b9630ed03dd0adf47/R.jpg):
+   
+    with open(img_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+def main():
+    if check_password():
+        st.title("PyGame - A video game database")
+        
+        # Add Background Image
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background: url("data:image/png;base64,{img_to_bytes('background.png')}");
+                background-size: cover
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
         
  # Add HomePage Link
         st.markdown("[Maryville University](https://www.maryville.edu/)", unsafe_allow_html=True)
