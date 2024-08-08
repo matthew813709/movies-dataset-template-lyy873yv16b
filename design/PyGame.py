@@ -157,6 +157,9 @@ def main():
 
         # Bottom image
         st.image("design/videogames-gamer-arcade-games-gaming-retro-games-gift-thomas-larch.jpg")
+
+        # link back to Maryville.edu.com
+        st.markdown("[Maryville University](https://www.maryville.edu)")
         
         # link back to google.com
         st.markdown("[Back to Google](https://www.google.com)")
