@@ -149,11 +149,15 @@ def main():
         # Initialize the session state for comments
         if 'comments' not in st.session_state:
             st.session_state['comments'] = []
-        
+
         # Comment section
         display_comments()
         edit_comment()
         add_comment()
+
+# Add the image at the beginning of the Streamlit app
+st.image("design/videogames-gamer-arcade-games-gaming-retro-games-gift-thomas-larch.jpg")
+
 
 if __name__ == "__main__":
     main()
