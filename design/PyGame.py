@@ -9,6 +9,18 @@ def load_data():
     if not os.path.exists(csv_path):
         st.error(f"CSV file not found at {csv_path}")
         return None
+    # Add Background Image
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background: url("data:image/png;base64,{img_to_bytes('background.png')}");
+                background-size: cover
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
     
     # Load data from the CSV file
     df = pd.read_csv(csv_path)
