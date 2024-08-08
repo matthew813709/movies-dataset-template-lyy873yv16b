@@ -109,7 +109,7 @@ def main():
                 color: white;
             }}
             .stTextInput > div > div > input {{
-                color: black;
+                color: white;
             }}
             </style>
             """,
