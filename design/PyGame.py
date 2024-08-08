@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-# Add the image at the beginning of the Streamlit app
+# Image at the beginning of the Streamlit app
 st.image("design/R.jpg")
 
 def load_data():
@@ -155,8 +155,12 @@ def main():
         edit_comment()
         add_comment()
 
-        #Bottom image
+        # Bottom image
         st.image("design/videogames-gamer-arcade-games-gaming-retro-games-gift-thomas-larch.jpg")
+        
+        # link back to google.com
+        st.markdown("[Back to Google](https://www.google.com)")
+
 
 
 if __name__ == "__main__":
