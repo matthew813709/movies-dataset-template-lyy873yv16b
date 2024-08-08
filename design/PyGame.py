@@ -180,6 +180,18 @@ def main():
         add_comment()
         register_email()
 
+ st.markdown(
+          f"""
+          <style>
+          .stApp {{
+              background: url("data:image/png;base64,{img_to_bytes("C:\Users\Administrator\Desktop\R.jpg")}");
+              background-size: cover
+          }}
+          </style>
+          """,
+          unsafe_allow_html=True
+      )
+        
  # Add HomePage Link
         st.markdown("[Maryville University](https://www.maryville.edu/)", unsafe_allow_html=True)
     
