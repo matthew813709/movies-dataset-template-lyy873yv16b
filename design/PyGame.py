@@ -3,6 +3,9 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
+# Add the image at the beginning of the Streamlit app
+st.image("https://github.com/matthew813709/PyGame-Maryville/blob/6dd4a908578b147cd78f6b8314394aa0f21395b8/design/R.jpg")
+
 def load_data():
     csv_path = "design/games.csv"  # Path to the CSV file
     if not os.path.exists(csv_path):
