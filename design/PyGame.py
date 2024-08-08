@@ -180,7 +180,7 @@ def main():
         add_comment()
         register_email()
 
- st.markdown(
+     st.markdown(
           f"""
           <style>
           .stApp {{
