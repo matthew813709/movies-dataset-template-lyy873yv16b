@@ -155,8 +155,8 @@ def main():
         edit_comment()
         add_comment()
 
-# Add the image at the beginning of the Streamlit app
-st.image("design/videogames-gamer-arcade-games-gaming-retro-games-gift-thomas-larch.jpg")
+        #Bottom image
+        st.image("design/videogames-gamer-arcade-games-gaming-retro-games-gift-thomas-larch.jpg")
 
 
 if __name__ == "__main__":
