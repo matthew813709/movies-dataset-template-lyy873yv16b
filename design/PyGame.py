@@ -181,10 +181,9 @@ def main():
         add_comment()
         register_email()
 
-    def img_to_bytes("https://github.com/matthew813709/Gitimages/blob/31d9627d62368f4af603317b9630ed03dd0adf47/R.jpg"):
-   
-    with open(img_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
+def img_to_bytes(img_path):
+with open(img_path, "C:\Users\Administrator\Desktop\R.jpg") as img_file:
+    return base64.b64encode(img_file.read()).decode()
 
 def main():
     if check_password():
