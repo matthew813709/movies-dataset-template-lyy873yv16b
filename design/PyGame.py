@@ -183,29 +183,71 @@ def main():
 
 def img_to_bytes(img_path):
     import base64
-    with open(r"design/R.jpg", "rb") as img_file:
+    with open(r"C:\Users\Administrator\Desktop\R.jpg", "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
 def main():
     if check_password():
         st.title("PyGame - A video game database")
         
-        # Add Background Image
+        # Add Background Image and Set Text Color to White
         st.markdown(
             f"""
             <style>
             .stApp {{
-                background: url("data:image/png;base64,{img_to_bytes('background.png')}");
-                background-size: cover
+                background: url("data:image/png;base64,{img_to_bytes(r'C:\Users\Administrator\Desktop\R.jpg')}");
+                background-size: cover;
+                color: white;
+            }}
+            .stTextInput > div > div > input {{
+                color: black;
             }}
             </style>
             """,
             unsafe_allow_html=True
         )
         
- # Add HomePage Link
-        st.markdown("[Maryville University](https://www.maryville.edu/)", unsafe_allow_html=True)
-    
+        # Add HomePage Link
+        st.markdown("[Homepage](https://www.maryville.edu/)", unsafe_allow_html=True)
+        
+        df = load_data()
+        if df is None:
+            return
+        
+        st.write(df)  # Show the full dataframe
+        edit_entries(df)
+        
+        # Email Registration Section
+        register_email()
+        
+        # Filter options in the sidebar
+        st.sidebar.header("Filter Options")
+        years = st.sidebar.slider("Select Year Range", 1980, 2020, (2000, 2010))
+        filtered_df = df[(df['Year_of_Release'] >= years[0]) & (df['Year_of_Release'] <= years[1])]
+        
+        # Visualization using Altair
+        scatter_plot = alt.Chart(filtered_df).mark_circle(size=60).encode(
+            x='Year_of_Release:O',
+            y='NA_sales:Q',
+            color='Platform:N',
+            tooltip=['Name', 'Platform', 'Year_of_Release', 'NA_sales']
+        ).interactive().properties(
+            width=800,
+            height=400,
+            title='Sales by Year (NA_sales)'
+        )
+        
+        st.altair_chart(scatter_plot, use_container_width=True)
+        
+        # Other visualizations...
+        # Initialize the session state for comments
+        if 'comments' not in st.session_state:
+            st.session_state['comments'] = []
+        
+        # Comment section
+        display_comments()
+        edit_comment()
+        add_comment()
 
 if __name__ == "__main__":
     main()
