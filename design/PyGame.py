@@ -168,6 +168,7 @@ def main():
         st.markdown("[Back to Google](https://www.google.com)")
 
         st.write("Matthew is a graduating senior of Maryville University. He is a trained data scientist from Tripleten and is pursuing his Ph.D. in stem cell medicine in the coming years.")
+        st.image("design/1694542141303.jpg")
 
 
 
